@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "659483316657",
+    "project_id": "adivinadondeestoy-75728",
+    "storage_bucket": "adivinadondeestoy-75728.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659483316657:android:83c92b5a4732ed564bed90",
+        "android_client_info": {
+          "package_name": "com.example.adivinadondeestoyproyecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659483316657-fugpat3midkongnhfuebpbi4mp263etb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.adivinadondeestoyproyecto",
+            "certificate_hash": "b18e11902e9fdfff340bbd19c86475bf50457da7"
+          }
+        },
+        {
+          "client_id": "659483316657-dv33bdpoqndill8k7dv4uc0thufnlat0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDW0pWAWJIgKvtiVQkUo7lONBHjz5jus0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659483316657-dv33bdpoqndill8k7dv4uc0thufnlat0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
