@@ -23,6 +23,7 @@ class Register : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.tbMenuReg)
         firebaseauth = FirebaseAuth.getInstance()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.tbMenuReg.setNavigationOnClickListener {
             finish()
         }
