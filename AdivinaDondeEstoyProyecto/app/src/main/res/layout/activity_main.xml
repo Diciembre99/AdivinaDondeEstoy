@@ -4,16 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="480dp"
+        android:layout_height="480dp"
+        android:layout_marginBottom="336dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner_login" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="377dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/base_adorno_lgin" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="575dp"
+        android:background="@drawable/base_login_rectangular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:orientation="vertical">
 
             <TextView
@@ -24,12 +56,13 @@
                 android:textColor="@color/white"
                 android:textSize="34sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:layout_marginLeft="50dp"
                 android:text="Correo"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -50,8 +83,8 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_corners"
                     android:hint="Correo"
-                    android:textColorHint="@color/white"
-                    android:textColor="#FFFFFF" /> <!-- Usar el fondo con esquinas redondas -->
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="@color/white" /> <!-- Usar el fondo con esquinas redondas -->
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -80,8 +113,8 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_corners"
                     android:hint="usuario"
-                    android:textColorHint="@color/white"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -92,6 +125,18 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="50dp"
                 android:text="Registrarse"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@color/coffe"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:text="Iniciar Sesion Google"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="@color/coffe"
                 app:cornerRadius="8dp" />
@@ -108,17 +153,6 @@
                 app:backgroundTint="@color/coffe"
                 app:cornerRadius="8dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGoogle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="50dp"
-                android:text="Iniciar Sesion Google"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="@color/coffe"
-                app:cornerRadius="8dp" />
         </LinearLayout>
     </ScrollView>
 
