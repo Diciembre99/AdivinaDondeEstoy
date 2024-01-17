@@ -1,5 +1,6 @@
 package com.example.adivinadondeestoyproyecto
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.example.adivinadondeestoyproyecto.databinding.ActivityMainMenuBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -24,7 +26,10 @@ class Main_Menu : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.tbMenuMain)
         firebaseauth = FirebaseAuth.getInstance()
-
+        binding.btnMapaSpain.setOnClickListener {
+            val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
+            startActivity(MapSapinIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

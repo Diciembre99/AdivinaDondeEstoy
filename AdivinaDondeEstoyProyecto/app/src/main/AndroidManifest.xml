@@ -13,6 +13,22 @@
         android:theme="@style/Theme.AdivinaDondeEstoyProyecto"
         tools:targetApi="31">
         <activity
+            android:name=".FragmentManage"
+            android:exported="false" />
+        <activity
+            android:name=".Fragment"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentActivity"
+            android:exported="false"
+            android:label="@string/title_activity_fragment"
+            android:theme="@style/Theme.AdivinaDondeEstoyProyecto" />
+        <activity
+            android:name=".Slayer"
+            android:exported="false"
+            android:label="@string/title_activity_slayer"
+            android:theme="@style/Theme.AdivinaDondeEstoyProyecto" />
+        <activity
             android:name=".Main_Menu"
             android:exported="false" />
         <activity

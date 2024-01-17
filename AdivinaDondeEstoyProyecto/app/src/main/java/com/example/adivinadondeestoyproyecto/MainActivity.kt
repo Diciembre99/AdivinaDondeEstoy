@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val registerIntent = Intent(this, Register::class.java)
             startActivity(registerIntent)
         }
