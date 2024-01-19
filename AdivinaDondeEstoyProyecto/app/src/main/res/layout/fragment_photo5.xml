@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".FragmentPhoto5">
 
     <LinearLayout
@@ -16,6 +17,8 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
             android:src="@drawable/banner_login" />
 
         <TextView
@@ -25,6 +28,7 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:text="BUSCAR"
             android:textAlignment="center"
+            android:textColor="@color/coffe"
             android:textSize="60sp" />
     </LinearLayout>
 

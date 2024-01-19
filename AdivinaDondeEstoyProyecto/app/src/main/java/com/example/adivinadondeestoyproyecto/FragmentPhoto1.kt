@@ -33,6 +33,9 @@ class FragmentPhoto1 : Fragment() {
         }.addOnFailureListener{
             Toast.makeText(context,"Algo ha fallado en la descarga", Toast.LENGTH_SHORT).show()
         }
+        binding.textView3.setOnClickListener(){
+
+        }
         return binding.root
     }
 }
