@@ -1,5 +1,6 @@
 package com.example.adivinadondeestoyproyecto
 
+import Modelo.Almacen
 import Modelo.Users
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -39,11 +40,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         firebaseauth = FirebaseAuth.getInstance()
 
+
         binding.btnLogin.setOnClickListener {
             if (binding.edtEmail.text?.isNotEmpty() == true && binding.edtPassword.text?.isNotEmpty() == true ){
                 firebaseauth.signInWithEmailAndPassword(binding.edtEmail.text.toString(),binding.edtPassword.text.toString()).addOnCompleteListener {
                     if (it.isSuccessful){
-                        goMainMenu(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
+                        db.collection("users")
+                            .whereEqualTo("email",binding.edtEmail.text.toString())
+                            .get()
+                            .addOnSuccessListener{
+                                for (document in it){
+                                    Almacen.user = Users(document.get("email").toString(),document.get("score").toString().toInt(), document.get("tries").toString().toInt())
+                                }
+                            }.addOnCompleteListener {
+                                goMainMenu(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
+                            }
                         Toast.makeText(this,"Se inicio Sesion", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, "Ha habido un error", Toast.LENGTH_SHORT).show()
@@ -69,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this,gso)
         // Inicio de sesion con google
         binding.btnGoogle.setOnClickListener {
+            Log.d(TAG1,"PRUEBA 4")
             loginEnGoogle()
         }
     }
@@ -90,13 +102,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun loginEnGoogle(){
         val signInClient = googleSignInClient.signInIntent
+        Log.d(TAG1,"PRUEBA 5")
         launcherWindowGoogle.launch(signInClient)
     }
 
     private val launcherWindowGoogle =  registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == RESULT_OK){
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            Log.d(TAG1,"PRUEBA 6")
             manageResult(task)
+
         }
     }
 
@@ -104,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         if (task.isSuccessful){
             val account : GoogleSignInAccount? = task.result
             if (account != null){
+                Log.d(TAG1,"PRUEBA 7")
                 updateUI(account)
             }
         }
@@ -118,6 +134,7 @@ class MainActivity : AppCompatActivity() {
             if (it.isSuccessful){
                 Toast.makeText(this,"Se ha iniciado sesion con google", Toast.LENGTH_SHORT).show()
                 guardarUsuario(account.email.toString(), account.displayName.toString())
+                goMainMenu(account.email.toString(), account.displayName.toString())
             }
             else {
                 Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -146,6 +163,7 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener{
                 for (document in it){
+                    Log.d(TAG1,"PRUEBA 1")
                     al.add(document.data.toString())
                 }
 
@@ -153,11 +171,18 @@ class MainActivity : AppCompatActivity() {
                     db.collection("users")
                         .document(user["email"].toString())
                         .set(user).addOnSuccessListener {
+                            Log.d(TAG1,"PRUEBA 2")
                         }
+                }
+                else {
+                    Log.d(TAG1,"PRUEBA 3")
+                    for (document in it){
+                        Almacen.user = Users(document.get("email").toString(),document.get("score").toString().toInt(), document.get("tries").toString().toInt())
+                    }
                 }
             }
             .addOnCompleteListener{
                 goMainMenu(email,gUser)
             }
-        }
     }
+}
