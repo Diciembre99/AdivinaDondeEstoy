@@ -1,8 +1,10 @@
 package com.example.adivinadondeestoyproyecto
 
+import Modelo.Users
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -18,6 +20,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -111,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         firebaseauth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
                 Toast.makeText(this,"Se ha iniciado sesion con google", Toast.LENGTH_SHORT).show()
-                goMainMenu(account.email.toString(), account.displayName.toString())
+                guardarUsuario(account.email.toString(), account.displayName.toString())
             }
             else {
                 Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -127,4 +133,31 @@ class MainActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-}
+    fun guardarUsuario(email: String, gUser: String) {
+        var al = ArrayList<String>()
+        var user = hashMapOf(
+            "email" to email,
+            "score" to 0,
+            "tries" to 0
+        )
+        //Users(user["usuario"].toString(),user["roles"].toString().toInt(),user["email"].toString(),user["genero"].toString().toInt(),user["Monedas"].toString().toInt())
+        db.collection("users")
+            .whereEqualTo("email",email)
+            .get()
+            .addOnSuccessListener{
+                for (document in it){
+                    al.add(document.data.toString())
+                }
+
+                if (al.size == 0){
+                    db.collection("users")
+                        .document(user["email"].toString())
+                        .set(user).addOnSuccessListener {
+                        }
+                }
+            }
+            .addOnCompleteListener{
+                goMainMenu(email,gUser)
+            }
+        }
+    }

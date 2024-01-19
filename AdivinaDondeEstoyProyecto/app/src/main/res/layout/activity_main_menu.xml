@@ -24,7 +24,7 @@
         android:id="@+id/btnMapaSpain"
         android:layout_width="305dp"
         android:layout_height="47dp"
-        android:text="Mapa de España"
+        android:text="Mapa mitologia de España"
         android:textColor="#FFFFFF"
         app:backgroundTint="@color/coffe"
         app:cornerRadius="8dp"
@@ -33,7 +33,37 @@
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbMenuMain"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.587" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn2"
+        android:layout_width="305dp"
+        android:layout_height="47dp"
+        android:text="Mapa mitologia Nordica"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="@color/coffe"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbMenuMain"
+        app:layout_constraintVertical_bias="0.708" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn3"
+        android:layout_width="305dp"
+        android:layout_height="47dp"
+        android:text="Mapa mitologia Griega"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="@color/coffe"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbMenuMain"
+        app:layout_constraintVertical_bias="0.837" />
 
     <ImageView
         android:id="@+id/imageView"

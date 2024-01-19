@@ -1,3 +1,3 @@
 package Modelo
 
-data class Users (var correo: String, var puntuacion: Int)
+data class Users (var email: String, var score: Int, var tries: Int)
