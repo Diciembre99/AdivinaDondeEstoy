@@ -1,5 +1,7 @@
 package com.example.adivinadondeestoyproyecto
 
+import Modelo.Almacen
+import Modelo.Leyend
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +15,8 @@ import com.example.adivinadondeestoyproyecto.databinding.ActivityMainMenuBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class Main_Menu : AppCompatActivity() {
     lateinit var binding: ActivityMainMenuBinding
@@ -20,6 +24,7 @@ class Main_Menu : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     val TAG1 = "JVVM"
     val TAG2 = "KRCC"
+    var db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
@@ -27,8 +32,21 @@ class Main_Menu : AppCompatActivity() {
         setSupportActionBar(binding.tbMenuMain)
         firebaseauth = FirebaseAuth.getInstance()
         binding.btnMapaSpain.setOnClickListener {
-            val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
-            startActivity(MapSapinIntent)
+            //val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
+            Almacen.listLeyend =  ArrayList()
+            db.collection("leyendas")
+                .get()
+                .addOnSuccessListener {
+                    for (document in it){
+                        Almacen.listLeyend.add(Leyend(document.get("nombre").toString(),document.get("cordeX").toString().toFloat(),document.get("cordeY").toString().toFloat(),document.get("descripcion").toString(),false))
+                    }
+                    Almacen.listLeyend.shuffle()
+
+                }
+                .addOnCompleteListener{
+                    val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
+                    startActivity(MapSapinIntent)
+                }
         }
     }
 
@@ -51,5 +69,13 @@ class Main_Menu : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (firebaseauth.currentUser.toString() == "null"){
+            finish()
+        }
+        recreate()
     }
 }

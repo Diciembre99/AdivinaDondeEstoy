@@ -1,5 +1,6 @@
 package com.example.adivinadondeestoyproyecto
 
+import Modelo.Almacen
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,15 +29,21 @@ class FragmentManage : AppCompatActivity() {
         binding.tbMenuReg.setNavigationOnClickListener {
             finish()
         }
+
         this.title = "Nivel 1"
         binding.viewPager.adapter = AdaptadorViewPage(this)
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab,index->
             tab.text = when(index){
-                0->{"Foto1"}
-                1->{"Foto2"}
-                2->{"Foto3"}
-                3->{"Foto4"}
-                4->{"Foto5"}
+                0->{
+                    Almacen.listLeyend[0].nombre}
+                1->{
+                    Almacen.listLeyend[1].nombre}
+                2->{
+                    Almacen.listLeyend[2].nombre}
+                3->{
+                    Almacen.listLeyend[3].nombre}
+                4->{
+                    Almacen.listLeyend[4].nombre}
                 else->{throw Resources.NotFoundException("Posición no encontrada") }
             }
         }.attach()
