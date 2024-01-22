@@ -5,4 +5,5 @@ object Almacen {
     lateinit var user: Users
     var nivel = 0
     lateinit var leyend : Leyend
+    var seleccionado: Int = 0
 }

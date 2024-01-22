@@ -36,7 +36,8 @@ class FragmentPhoto1 : Fragment() {
             Toast.makeText(context,"Algo ha fallado en la descarga", Toast.LENGTH_SHORT).show()
         }
         binding.textView3.setOnClickListener(){
-            Almacen.leyend = Almacen.listLeyend[0+(Almacen.nivel*5)]
+            //Almacen.leyend = Almacen.listLeyend[0+(Almacen.nivel*5)]
+            Almacen.seleccionado = 0+(Almacen.nivel*5)
             val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
             startActivity(MapSapinIntent)
         }

@@ -38,7 +38,7 @@ class Main_Menu : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener {
                     for (document in it){
-                        Almacen.listLeyend.add(Leyend(document.get("nombre").toString(),document.get("cordeX").toString().toFloat(),document.get("cordeY").toString().toFloat(),document.get("descripcion").toString(),false))
+                        Almacen.listLeyend.add(Leyend(document.get("nombre").toString(),document.get("cordeX").toString().toDouble(),document.get("cordeY").toString().toDouble(),document.get("descripcion").toString(),false))
                     }
                     Almacen.listLeyend.shuffle()
 
