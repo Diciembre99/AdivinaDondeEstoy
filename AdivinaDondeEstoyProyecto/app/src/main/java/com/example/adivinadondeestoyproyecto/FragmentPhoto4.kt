@@ -1,6 +1,7 @@
 package com.example.adivinadondeestoyproyecto
 
 import Modelo.Almacen
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,7 +24,7 @@ class FragmentPhoto4 : Fragment() {
         binding = FragmentPhoto4Binding.inflate(inflater, container, false)
         var storage = Firebase.storage
         var storageRef = storage.reference
-        var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[3].nombre}.jpg")
+        var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[3+(Almacen.nivel*5)].nombre}.jpg")
 
         val localfile  = File.createTempFile("tempImage","jpg")
         spaceRef.getFile(localfile).addOnSuccessListener {
@@ -31,6 +32,11 @@ class FragmentPhoto4 : Fragment() {
             binding.imageView2.setImageBitmap(bitmap)
         }.addOnFailureListener{
             Toast.makeText(context,"Algo ha fallado en la descarga", Toast.LENGTH_SHORT).show()
+        }
+        binding.textView3.setOnClickListener(){
+            Almacen.leyend = Almacen.listLeyend[3+(Almacen.nivel*5)]
+            val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
+            startActivity(MapSapinIntent)
         }
         return binding.root
     }

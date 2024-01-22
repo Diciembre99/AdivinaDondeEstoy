@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity() {
             if (it.isSuccessful){
                 Toast.makeText(this,"Se ha iniciado sesion con google", Toast.LENGTH_SHORT).show()
                 guardarUsuario(account.email.toString(), account.displayName.toString())
-                goMainMenu(account.email.toString(), account.displayName.toString())
             }
             else {
                 Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()

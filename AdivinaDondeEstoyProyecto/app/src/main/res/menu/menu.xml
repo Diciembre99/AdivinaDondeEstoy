@@ -2,6 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/option_2"
+        android:icon="@drawable/circle_left_solid"
+        android:title="cerrar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/option_3"
+        android:icon="@drawable/circle_right_solid"
+        android:title="cerrar"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/option_1"
         android:icon="@drawable/user_slash_solid"
         android:title="cerrar"
