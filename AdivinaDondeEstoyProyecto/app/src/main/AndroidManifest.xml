@@ -22,7 +22,8 @@
 
         <activity
             android:name=".Busqueda"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Juego"
             android:exported="false"
@@ -30,7 +31,8 @@
             android:theme="@style/Theme.AdivinaDondeEstoyProyecto" />
         <activity
             android:name=".FragmentManage"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Fragment"
             android:exported="false" />
@@ -46,10 +48,12 @@
             android:theme="@style/Theme.AdivinaDondeEstoyProyecto" />
         <activity
             android:name=".Main_Menu"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Register"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

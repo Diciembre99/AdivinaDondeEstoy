@@ -19,6 +19,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -38,6 +39,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -75,7 +77,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
         }
 
         this.title = "Busqueda"
-
+        lateinit var imagen: Bitmap
         var storage = com.google.firebase.Firebase.storage
         var storageRef = storage.reference
         var spaceRef = storageRef.child("leyendas/${Almacen.leyend.nombre}.jpg")
@@ -84,14 +86,26 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
         spaceRef.getFile(localfile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
             binding.imPista.setImageBitmap(bitmap)
+            imagen = bitmap
         }.addOnFailureListener{
             Toast.makeText(this,"Algo ha fallado en la descarga", Toast.LENGTH_SHORT).show()
         }
 
+        binding.tvName.text = Almacen.leyend.nombre
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+
+        binding.imPista.setOnClickListener(){
+            val inflater = layoutInflater
+            val build = MaterialAlertDialogBuilder(this)
+            val dialogView = inflater.inflate(R.layout.dialogpista, null)
+            val image: ImageView = dialogView.findViewById(R.id.imgPista)
+            image.setImageBitmap(imagen)
+            build.setView(dialogView)
+            build.show()
+        }
 
 
     }
