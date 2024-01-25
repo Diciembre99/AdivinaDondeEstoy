@@ -21,10 +21,15 @@ class FragmentPhoto4 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentPhoto4Binding.inflate(inflater, container, false)
         var storage = Firebase.storage
         var storageRef = storage.reference
         var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[3+(Almacen.nivel*5)].nombre}.jpg")
+
+        if(Almacen.listLeyend[3+(Almacen.nivel*5)].acertado){
+            binding.textView3.text = "INFORMACION"
+        }
 
         val localfile  = File.createTempFile("tempImage","jpg")
         spaceRef.getFile(localfile).addOnSuccessListener {
@@ -35,8 +40,13 @@ class FragmentPhoto4 : Fragment() {
         }
         binding.textView3.setOnClickListener(){
             Almacen.seleccionado = 3+(Almacen.nivel*5)
-            val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
-            startActivity(MapSapinIntent)
+            if(Almacen.listLeyend[3+(Almacen.nivel*5)].acertado){
+                val MapSapinIntent = Intent(context, Informacion::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }else{
+                val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }
         }
         return binding.root
     }

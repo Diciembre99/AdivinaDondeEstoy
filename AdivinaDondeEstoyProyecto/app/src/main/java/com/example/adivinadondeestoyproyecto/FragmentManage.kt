@@ -29,7 +29,6 @@ class FragmentManage : AppCompatActivity() {
         binding.tbMenuReg.setNavigationOnClickListener {
             finish()
         }
-
         this.title = "Nivel "+(Almacen.nivel+1)
 
 
@@ -37,17 +36,29 @@ class FragmentManage : AppCompatActivity() {
         binding.viewPager.adapter = AdaptadorViewPage(this)
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab,index->
             tab.text = when(index){
-                0->{
-                    Almacen.listLeyend[(0+(Almacen.nivel*5))].nombre}
-                1->{
-                    Almacen.listLeyend[1+(Almacen.nivel*5)].nombre}
-                2->{
-                    Almacen.listLeyend[2+(Almacen.nivel*5)].nombre}
-                3->{
-                    Almacen.listLeyend[3+(Almacen.nivel*5)].nombre}
-                4->{
-                    Almacen.listLeyend[4+(Almacen.nivel*5)].nombre}
+                0-> if(Almacen.listLeyend[(0+(Almacen.nivel*5))].acertado) Almacen.listLeyend[0+(Almacen.nivel*5)].nombre else ""
+                1-> if(Almacen.listLeyend[(1+(Almacen.nivel*5))].acertado) Almacen.listLeyend[1+(Almacen.nivel*5)].nombre else ""
+                2-> if(Almacen.listLeyend[(2+(Almacen.nivel*5))].acertado) Almacen.listLeyend[2+(Almacen.nivel*5)].nombre else ""
+                3-> if(Almacen.listLeyend[(3+(Almacen.nivel*5))].acertado) Almacen.listLeyend[3+(Almacen.nivel*5)].nombre else ""
+                4-> if(Almacen.listLeyend[(4+(Almacen.nivel*5))].acertado) Almacen.listLeyend[4+(Almacen.nivel*5)].nombre else ""
                 else->{throw Resources.NotFoundException("Posición no encontrada") }
+            }
+            tab.icon = when(index){
+                0 ->  if(Almacen.listLeyend[(0+(Almacen.nivel*5))].acertado) getDrawable(R.drawable.lock_open_solid) else getDrawable(R.drawable.lock_solid)
+
+                1 ->{
+                    if(Almacen.listLeyend[(1+(Almacen.nivel*5))].acertado) getDrawable(R.drawable.lock_open_solid) else getDrawable(R.drawable.lock_solid)
+                }
+                2 ->{
+                    if(Almacen.listLeyend[(2+(Almacen.nivel*5))].acertado) getDrawable(R.drawable.lock_open_solid) else getDrawable(R.drawable.lock_solid)
+                }
+                3 ->{
+                    if(Almacen.listLeyend[(3+(Almacen.nivel*5))].acertado) getDrawable(R.drawable.lock_open_solid) else getDrawable(R.drawable.lock_solid)
+                }
+                4 ->{
+                    if(Almacen.listLeyend[(4+(Almacen.nivel*5))].acertado) getDrawable(R.drawable.lock_open_solid) else getDrawable(R.drawable.lock_solid)
+                }
+                else -> {throw Resources.NotFoundException("Posición no encontrada")}
             }
         }.attach()
     }
@@ -55,12 +66,14 @@ class FragmentManage : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+        menu?.findItem(R.id.option_3)?.isVisible = false
         if(Almacen.nivel == 0){
             menu?.findItem(R.id.option_2)?.isVisible = false
         }
-        if(Almacen.nivel == ((Almacen.listLeyend.size/5)-1).toInt()){
-            menu?.findItem(R.id.option_3)?.isVisible = false
+        if (Almacen.listLeyend[(0+(Almacen.nivel*5))].acertado && Almacen.listLeyend[(1+(Almacen.nivel*5))].acertado && Almacen.listLeyend[(2+(Almacen.nivel*5))].acertado && Almacen.listLeyend[(3+(Almacen.nivel*5))].acertado && Almacen.listLeyend[(4+(Almacen.nivel*5))].acertado){
+            menu?.findItem(R.id.option_3)?.isVisible = true
         }
+
 
         return true
     }
@@ -81,10 +94,17 @@ class FragmentManage : AppCompatActivity() {
                 recreate()
             }
             R.id.option_3->{
-                Almacen.nivel = Almacen.nivel + 1
-                recreate()
+                if(Almacen.nivel != ((Almacen.listLeyend.size/5)-1).toInt()){
+                    Almacen.nivel = Almacen.nivel + 1
+                    recreate()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        recreate()
     }
 }

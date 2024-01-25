@@ -56,6 +56,11 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     var db = Firebase.firestore
     var tries = 5
     lateinit var posicionLeyenda : LatLng
+    var purpleMin = 400000f - Almacen.nivel*10000
+    var redMin = 300000f - Almacen.nivel*10000
+    var orangeMin = 200000f - Almacen.nivel*10000
+    var greenMax = 100000f - Almacen.nivel*10000
+
 
     private val LOCATION_REQUEST_CODE: Int = 0
     private lateinit var mapView: MapView
@@ -76,6 +81,13 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
         binding.tbBusqueda.setNavigationOnClickListener {
             finish()
         }
+        if (Almacen.nivel == 10){
+            purpleMin = 310000f
+            redMin = 210000f
+            orangeMin = 110000f
+            greenMax = 10000f
+        }
+
         posicionLeyenda = LatLng(Almacen.listLeyend[Almacen.seleccionado].cordenadaX,Almacen.listLeyend[Almacen.seleccionado].cordenadaY)
         this.title = "Busqueda"
         lateinit var imagen: Bitmap
@@ -145,9 +157,6 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-
-        //googleMap.addMarker(MarkerOptions().position(location).title("Marker in San Francisco"))
-        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
 
         map = googleMap
         //Se pueden seleccionar varios tiops de mapas:
@@ -252,16 +261,19 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
             var color: Float = 0f
 
             when{
-                distancia >= 300000f ->{
+                distancia > purpleMin->{
+                    color = BitmapDescriptorFactory.HUE_VIOLET
+                }
+                purpleMin >= distancia && distancia > redMin ->{
                     color = BitmapDescriptorFactory.HUE_RED
                 }
-                300000f >= distancia && distancia > 200000f ->{
+                redMin >= distancia && distancia > orangeMin ->{
                     color = BitmapDescriptorFactory.HUE_ORANGE
                 }
-                200000f >= distancia && distancia > 100000f ->{
+                orangeMin >= distancia && distancia > greenMax ->{
                     color = BitmapDescriptorFactory.HUE_YELLOW
                 }
-                100000f >= distancia ->{
+                greenMax >= distancia ->{
                     color = BitmapDescriptorFactory.HUE_GREEN
                     Almacen.listLeyend[Almacen.seleccionado].acertado = true
                 }
