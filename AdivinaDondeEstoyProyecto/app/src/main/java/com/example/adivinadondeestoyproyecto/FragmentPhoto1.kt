@@ -28,6 +28,10 @@ class FragmentPhoto1 : Fragment() {
         var storageRef = storage.reference
         var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[0+(Almacen.nivel*5)].nombre}.jpg")
 
+        if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
+            binding.textView3.text = "INFORMACION"
+        }
+
         val localfile  = File.createTempFile("tempImage","jpg")
         spaceRef.getFile(localfile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
@@ -38,8 +42,14 @@ class FragmentPhoto1 : Fragment() {
         binding.textView3.setOnClickListener(){
             //Almacen.leyend = Almacen.listLeyend[0+(Almacen.nivel*5)]
             Almacen.seleccionado = 0+(Almacen.nivel*5)
-            val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
-            startActivity(MapSapinIntent)
+
+            if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
+                val MapSapinIntent = Intent(context, Informacion::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }else{
+                val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }
         }
         return binding.root
     }
