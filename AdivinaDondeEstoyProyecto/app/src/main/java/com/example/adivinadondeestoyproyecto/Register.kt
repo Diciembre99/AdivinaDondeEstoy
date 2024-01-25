@@ -54,6 +54,9 @@ class Register : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+        menu?.findItem(R.id.option_1)!!.isVisible = false
+        menu.findItem(R.id.option_2)!!.isVisible = false
+        menu.findItem(R.id.option_3)!!.isVisible = false
         return true
     }
 
