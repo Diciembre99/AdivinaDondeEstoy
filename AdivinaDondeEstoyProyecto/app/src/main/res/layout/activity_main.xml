@@ -99,7 +99,7 @@
                 android:hint="Usuario"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
-                app:endIconMode="clear_text"
+                app:endIconMode="password_toggle"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +107,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_corners"
-                    android:hint="usuario"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
                     android:textColor="#FFFFFF"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
