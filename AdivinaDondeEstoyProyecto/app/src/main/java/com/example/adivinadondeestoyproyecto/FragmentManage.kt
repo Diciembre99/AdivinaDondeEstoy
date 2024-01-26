@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.adivinadondeestoyproyecto.databinding.ActivityFragmentManageBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -31,7 +32,7 @@ class FragmentManage : AppCompatActivity() {
         }
         this.title = "Nivel "+(Almacen.nivel+1)
 
-
+        firebaseauth = FirebaseAuth.getInstance()
 
         binding.viewPager.adapter = AdaptadorViewPage(this)
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab,index->
@@ -97,6 +98,8 @@ class FragmentManage : AppCompatActivity() {
                 if(Almacen.nivel != ((Almacen.listLeyend.size/5)-1).toInt()){
                     Almacen.nivel = Almacen.nivel + 1
                     recreate()
+                }else{
+                    Toast.makeText(this,"No hay mas niveles disponibles", Toast.LENGTH_SHORT).show()
                 }
             }
         }

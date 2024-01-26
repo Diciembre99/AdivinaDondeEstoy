@@ -63,7 +63,6 @@ class Register : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.option_1 -> {
-                Toast.makeText(this,"Temporal", Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)

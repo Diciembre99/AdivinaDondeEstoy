@@ -136,23 +136,13 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+        menu?.findItem(R.id.option_1)?.isVisible = false
         menu?.findItem(R.id.option_2)?.isVisible = false
         menu?.findItem(R.id.option_3)?.isVisible = false
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.option_1 -> {
-                Log.e(TAG1, firebaseauth.currentUser.toString())
-                firebaseauth.signOut()
-
-                val signInClient = Identity.getSignInClient(this)
-                signInClient.signOut()
-                Log.e(TAG1,"Cerrada sesión completamente")
-                finish()
-            }
-        }
         return super.onOptionsItemSelected(item)
     }
 
