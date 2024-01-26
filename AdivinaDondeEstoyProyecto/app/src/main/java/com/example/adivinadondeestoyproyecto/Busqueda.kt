@@ -1,6 +1,8 @@
 package com.example.adivinadondeestoyproyecto
 
+import Adaptador.AdaptadorPoint
 import Modelo.Almacen
+import Modelo.Point
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,9 +23,12 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.adivinadondeestoyproyecto.databinding.ActivityBusquedaBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -51,6 +56,8 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     lateinit var binding: ActivityBusquedaBinding
     private lateinit var firebaseauth : FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    lateinit var miRecyclerView : RecyclerView
+    lateinit var miAdapter : AdaptadorPoint
     val TAG1 = "JVVM"
     val TAG2 = "KRCC"
     var db = Firebase.firestore
@@ -70,6 +77,8 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
 
     companion object {
         const val REQUEST_CODE_LOCATION = 0
+        @SuppressLint("StaticFieldLeak")
+        lateinit var contextoPrincipal: Context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,6 +129,17 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
             build.show()
         }
 
+        Almacen.listPoint = ArrayList()
+
+        miRecyclerView = binding.recycledView
+        miRecyclerView.setHasFixedSize(true)
+        miRecyclerView.layoutManager = GridLayoutManager(this, 1)
+
+        miAdapter = AdaptadorPoint(Almacen.listPoint,this)
+
+        miRecyclerView.adapter = miAdapter
+
+        contextoPrincipal = this
 
     }
 
@@ -253,6 +273,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
             when{
                 distancia > purpleMin->{
                     color = BitmapDescriptorFactory.HUE_VIOLET
+                    Almacen.listPoint.add(Point("",ContextCompat.getDrawable(this,R.drawable.location_dot_solid_purple),p0.latitude,p0.longitude))
                 }
                 purpleMin >= distancia && distancia > redMin ->{
                     color = BitmapDescriptorFactory.HUE_RED
@@ -269,6 +290,8 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                 }
 
             }
+
+            miAdapter.actualizarDatos()
 
             var marcador = map.addMarker(
                 MarkerOptions().position(p0!!).title("Intento "+(6-tries))
