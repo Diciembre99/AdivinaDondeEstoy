@@ -12,6 +12,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
@@ -265,6 +266,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     override fun onMapLongClick(p0: LatLng) {
         if(tries != 0 && !Almacen.listLeyend[Almacen.seleccionado].acertado){
             val distancia = calculatedDistance(p0)
+            var colorPoint : Drawable? = null
 
             Log.e(TAG1,distancia.toString())
 
@@ -273,24 +275,29 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
             when{
                 distancia > purpleMin->{
                     color = BitmapDescriptorFactory.HUE_VIOLET
-                    Almacen.listPoint.add(Point("",ContextCompat.getDrawable(this,R.drawable.location_dot_solid_purple),p0.latitude,p0.longitude))
+                    colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_purple)
                 }
                 purpleMin >= distancia && distancia > redMin ->{
                     color = BitmapDescriptorFactory.HUE_RED
+                    colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_red)
                 }
                 redMin >= distancia && distancia > orangeMin ->{
                     color = BitmapDescriptorFactory.HUE_ORANGE
+                    colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_orange)
                 }
                 orangeMin >= distancia && distancia > greenMax ->{
                     color = BitmapDescriptorFactory.HUE_YELLOW
+                    colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_yellow)
                 }
                 greenMax >= distancia ->{
                     color = BitmapDescriptorFactory.HUE_GREEN
+                    colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_green)
                     Almacen.listLeyend[Almacen.seleccionado].acertado = true
                 }
 
             }
 
+            Almacen.listPoint.add(Point("",colorPoint,p0.latitude,p0.longitude))
             miAdapter.actualizarDatos()
 
             var marcador = map.addMarker(
