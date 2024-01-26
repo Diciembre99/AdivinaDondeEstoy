@@ -3,6 +3,7 @@ package com.example.adivinadondeestoyproyecto
 import Modelo.Almacen
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,10 @@ import java.io.File
 
 class FragmentPhoto2 : Fragment() {
     lateinit var  binding : FragmentPhoto2Binding
+    override fun onResume() {
+        super.onResume()
+        inicioVideo()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +31,7 @@ class FragmentPhoto2 : Fragment() {
         var storage = Firebase.storage
         var storageRef = storage.reference
         var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[1+(Almacen.nivel*5)].nombre}.jpg")
+        inicioVideo()
 
         if(Almacen.listLeyend[1+(Almacen.nivel*5)].acertado){
             binding.textView3.text = "INFORMACION"
@@ -48,8 +54,30 @@ class FragmentPhoto2 : Fragment() {
                 startActivity(MapSapinIntent)
             }
         }
+
+        binding.imageView2.setOnClickListener(){
+            Almacen.seleccionado = 0+(Almacen.nivel*5)
+
+            if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
+                val MapSapinIntent = Intent(context, Informacion::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }else{
+                val MapSapinIntent = Intent(context, Busqueda::class.java).apply {}
+                startActivity(MapSapinIntent)
+            }
+        }
+
         return binding.root
     }
 
-
+    fun inicioVideo(){
+        val packageName = requireContext().packageName
+        binding.video!!.setVideoURI(
+            Uri.parse("android.resource://"
+                    + packageName + "/" + R.raw.fondoapp))
+        binding.video.start()
+        binding.video.setOnCompletionListener { mediaPlayer ->
+            mediaPlayer.start()
+        }
+    }
 }

@@ -35,6 +35,8 @@
         <!-- Mueve el TabLayout fuera del LinearLayout y ajústalo para estar en la parte inferior -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
+            android:background="@color/coffe"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
