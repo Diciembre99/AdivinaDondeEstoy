@@ -304,7 +304,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                     val player = mediaPlayer ?: return
                     player.start()
                     Almacen.score = Almacen.score + (500*tries)
-                    Almacen.tries = Almacen.tries + tries
+                    Almacen.tries = Almacen.tries + (6-tries)
                     dialogFinish("Felicidades, desbloqueaste a este personaje\nConseguiste "+(500*tries)+ " puntos\nLlevas "+Almacen.score+ " puntos","Acertaste")
 
 
