@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationManager
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,6 +60,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     private lateinit var googleSignInClient: GoogleSignInClient
     lateinit var miRecyclerView : RecyclerView
     lateinit var miAdapter : AdaptadorPoint
+    private var mediaPlayer: MediaPlayer? = null
     val TAG1 = "JVVM"
     val TAG2 = "KRCC"
     var db = Firebase.firestore
@@ -293,6 +295,18 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                     color = BitmapDescriptorFactory.HUE_GREEN
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_green)
                     Almacen.listLeyend[Almacen.seleccionado].acertado = true
+                    mediaPlayer = MediaPlayer.create(this, R.raw.check)
+                    val player = mediaPlayer ?: return
+                    player.start()
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle("Acertaste!")
+                        .setMessage("Felicidades, desbloqueaste a este personaje")
+                        .setPositiveButton("Aceptar") { dialog, which ->
+                            finish()
+                        }
+                        .show()
+
+
                 }
 
             }

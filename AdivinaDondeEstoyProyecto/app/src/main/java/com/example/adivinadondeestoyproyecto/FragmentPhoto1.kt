@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.adivinadondeestoyproyecto.databinding.FragmentPhoto1Binding
 import com.google.firebase.storage.storage
 import com.google.firebase.Firebase
@@ -36,6 +37,7 @@ class FragmentPhoto1 : Fragment() {
         var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[0+(Almacen.nivel*5)].nombre}.jpg")
         if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
             binding.textView3.text = "INFORMACION"
+            binding.imageView2.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.green))
         }
 
         val localfile  = File.createTempFile("tempImage","jpg")
