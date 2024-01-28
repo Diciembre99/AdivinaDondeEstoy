@@ -77,7 +77,7 @@ class FragmentManage : AppCompatActivity() {
                     "\nQuieres terminar el intento","Lo conseguistes",true)
         }
         else if(Almacen.score == Almacen.user.score){
-            if(Almacen.tries > Almacen.user.tries){
+            if(Almacen.tries < Almacen.user.tries){
                 dialogFinish("Has conseguido mejorar tu puntuacion anterior\nP.Guardada "
                         +Almacen.user.score+" | P.Actual  "+Almacen.score+"\nI.Guardada "
                         +Almacen.user.tries+" | I.Actual "+Almacen.tries+
