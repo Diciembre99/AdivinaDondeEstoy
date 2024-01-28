@@ -294,17 +294,18 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                 greenMax >= distancia ->{
                     color = BitmapDescriptorFactory.HUE_GREEN
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_green)
+                    map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(p0, 10.5f),
+                        4000,
+                        null
+                    )
                     Almacen.listLeyend[Almacen.seleccionado].acertado = true
                     mediaPlayer = MediaPlayer.create(this, R.raw.check)
                     val player = mediaPlayer ?: return
                     player.start()
-                    MaterialAlertDialogBuilder(this)
-                        .setTitle("Acertaste!")
-                        .setMessage("Felicidades, desbloqueaste a este personaje")
-                        .setPositiveButton("Aceptar") { dialog, which ->
-                            finish()
-                        }
-                        .show()
+                    Almacen.score = Almacen.score + (500*tries)
+                    Almacen.tries = Almacen.tries + tries
+                    dialogFinish("Felicidades, desbloqueaste a este personaje\nConseguiste "+(500*tries)+ " puntos\nLlevas "+Almacen.score+ " puntos","Acertaste")
 
 
                 }
@@ -321,11 +322,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
             alMarcadores.add(marcador!!)
 
 
-            if (Almacen.listLeyend[Almacen.seleccionado].acertado){
-                Almacen.user.score = Almacen.user.score + (500*tries)
-                Almacen.user.tries = Almacen.user.tries + tries
-            }
-            else{
+            if (!Almacen.listLeyend[Almacen.seleccionado].acertado){
                 tries--
             }
 
@@ -345,15 +342,25 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                 }
                 0 ->{
                     binding.imCorazon5.setImageDrawable(getDrawable(R.drawable.corazon_x))
+                    Almacen.score = Almacen.score + -500
+                    Almacen.tries = Almacen.tries + tries
+                    dialogFinish("Perdiste, vuelve a intentarlo\nPierdes 500 puntos\nLlevas "+Almacen.score+ " puntos","Fallaste")
                 }
             }
         }
 
     }
 
-    /**
-     * Este evento se lanza cuando hacemos click en un marcador.
-     */
+    fun dialogFinish(message :String, tittle :String){
+        MaterialAlertDialogBuilder(this)
+            .setTitle(tittle)
+            .setMessage(message)
+            .setPositiveButton("Aceptar") { dialog, which ->
+                finish()
+            }
+            .show()
+    }
+
     override fun onMarkerClick(p0: Marker): Boolean {
 
         val dialogBuilder = AlertDialog.Builder(this)

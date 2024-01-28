@@ -11,6 +11,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.adivinadondeestoyproyecto.databinding.ActivityMainMenuBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -45,6 +46,8 @@ class Main_Menu : AppCompatActivity() {
                 }
                 .addOnCompleteListener{
                     Almacen.nivel = 0
+                    Almacen.score = 0
+                    Almacen.tries = 0
                     val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
                     startActivity(MapSapinIntent)
                 }

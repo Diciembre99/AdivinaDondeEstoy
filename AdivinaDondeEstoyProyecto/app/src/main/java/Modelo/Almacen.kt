@@ -6,4 +6,6 @@ object Almacen {
     var nivel = 0
     var seleccionado: Int = 0
     lateinit var listPoint : ArrayList<Point>
+    var score = 0
+    var tries = 0
 }

@@ -12,13 +12,17 @@ import android.widget.Toast
 import com.example.adivinadondeestoyproyecto.databinding.ActivityFragmentManageBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class FragmentManage : AppCompatActivity() {
     lateinit var binding: ActivityFragmentManageBinding
     private lateinit var firebaseauth : FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    var db = Firebase.firestore
     val TAG1 = "JVVM"
     val TAG2 = "KRCC"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +32,8 @@ class FragmentManage : AppCompatActivity() {
         setSupportActionBar(binding.tbMenuReg)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.tbMenuReg.setNavigationOnClickListener {
-            finish()
+            saveScore()
+
         }
         this.title = "Nivel "+(Almacen.nivel+1)
 
@@ -62,6 +67,71 @@ class FragmentManage : AppCompatActivity() {
                 else -> {throw Resources.NotFoundException("Posición no encontrada")}
             }
         }.attach()
+    }
+
+    fun saveScore(){
+        if(Almacen.score > Almacen.user.score){
+            dialogFinish("Has conseguido mejorar tu puntuacion anterior\nP.Guardada "
+                    +Almacen.user.score+" | P.Actual  "+Almacen.score+"\nI.Guardada "
+                    +Almacen.user.tries+" | I.Actual "+Almacen.tries+
+                    "\nQuieres terminar el intento","Lo conseguistes",true)
+        }
+        else if(Almacen.score == Almacen.user.score){
+            if(Almacen.tries > Almacen.user.tries){
+                dialogFinish("Has conseguido mejorar tu puntuacion anterior\nP.Guardada "
+                        +Almacen.user.score+" | P.Actual  "+Almacen.score+"\nI.Guardada "
+                        +Almacen.user.tries+" | I.Actual "+Almacen.tries+
+                        "\nQuieres terminar el intento","Lo conseguistes",true)
+            }else{
+                dialogFinish("No has conseguido mejorar tu puntuacion anterior\nP.Guardada "
+                        +Almacen.user.score+" | P.Actual  "+Almacen.score+"\nI.Guardada "
+                        +Almacen.user.tries+" | I.Actual "+Almacen.tries+
+                        "\nQuieres terminar el intento","No mejoraste",false)
+            }
+        }else{
+            dialogFinish("No has conseguido mejorar tu puntuacion anterior\nP.Guardada "
+                    +Almacen.user.score+" | P.Actual  "+Almacen.score+"\nI.Guardada "
+                    +Almacen.user.tries+" | I.Actual "+Almacen.tries+
+                    "\nQuieres terminar el intento","No mejoraste",false)
+        }
+    }
+
+    fun saveInDataBase(){
+        Almacen.user.score = Almacen.score
+        Almacen.user.tries = Almacen.tries
+        var user = hashMapOf(
+            "email" to Almacen.user.email,
+            "score" to Almacen.user.score,
+            "tries" to Almacen.user.tries,
+
+        )
+        db.collection("users")
+            .document(Almacen.user.email)
+            .set(user).addOnSuccessListener {
+                Log.d(TAG1, "crea")
+            }
+            .addOnCompleteListener{
+                finish()
+            }
+
+    }
+
+    fun dialogFinish(message :String, tittle :String, better: Boolean){
+        MaterialAlertDialogBuilder(this)
+            .setTitle(tittle)
+            .setMessage(message)
+            .setPositiveButton("Guardar") { dialog, which ->
+                if(better){
+                    saveInDataBase()
+                }
+                else{
+                    finish()
+                }
+            }
+            .setNegativeButton("Volver"){dialog, which ->
+
+            }
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
