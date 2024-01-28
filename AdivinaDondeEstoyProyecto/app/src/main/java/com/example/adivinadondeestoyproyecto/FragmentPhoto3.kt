@@ -34,6 +34,7 @@ class FragmentPhoto3 : Fragment() {
 
         if(Almacen.listLeyend[2+(Almacen.nivel*5)].acertado){
             binding.textView3.text = "INFORMACION"
+            binding.imageView2.setBackgroundResource(R.drawable.rounded_cornersgrenn)
         }
         inicioVideo()
         val localfile  = File.createTempFile("tempImage","jpg")
@@ -55,9 +56,8 @@ class FragmentPhoto3 : Fragment() {
             }
         }
         binding.imageView2.setOnClickListener(){
-            Almacen.seleccionado = 0+(Almacen.nivel*5)
-
-            if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
+            Almacen.seleccionado = 2+(Almacen.nivel*5)
+            if(Almacen.listLeyend[2+(Almacen.nivel*5)].acertado){
                 val MapSapinIntent = Intent(context, Informacion::class.java).apply {}
                 startActivity(MapSapinIntent)
             }else{

@@ -37,7 +37,7 @@ class FragmentPhoto1 : Fragment() {
         var spaceRef = storageRef.child("leyendas/${Almacen.listLeyend[0+(Almacen.nivel*5)].nombre}.jpg")
         if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
             binding.textView3.text = "INFORMACION"
-            binding.imageView2.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.green))
+            binding.imageView2.setBackgroundResource(R.drawable.rounded_cornersgrenn)
         }
 
         val localfile  = File.createTempFile("tempImage","jpg")

@@ -16,8 +16,11 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationManager
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -278,18 +281,22 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                 distancia > purpleMin->{
                     color = BitmapDescriptorFactory.HUE_VIOLET
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_purple)
+                    vibrarDispositivo(500)
                 }
                 purpleMin >= distancia && distancia > redMin ->{
                     color = BitmapDescriptorFactory.HUE_RED
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_red)
+                    vibrarDispositivo(500)
                 }
                 redMin >= distancia && distancia > orangeMin ->{
                     color = BitmapDescriptorFactory.HUE_ORANGE
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_orange)
+                    vibrarDispositivo(500)
                 }
                 orangeMin >= distancia && distancia > greenMax ->{
                     color = BitmapDescriptorFactory.HUE_YELLOW
                     colorPoint = ContextCompat.getDrawable(this,R.drawable.location_dot_solid_yellow)
+                    vibrarDispositivo(500)
                 }
                 greenMax >= distancia ->{
                     color = BitmapDescriptorFactory.HUE_GREEN
@@ -300,7 +307,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                         null
                     )
                     Almacen.listLeyend[Almacen.seleccionado].acertado = true
-                    mediaPlayer = MediaPlayer.create(this, R.raw.check)
+                    mediaPlayer = MediaPlayer.create(this, R.raw.violin_win)
                     val player = mediaPlayer ?: return
                     player.start()
                     Almacen.score = Almacen.score + (500*tries)
@@ -343,8 +350,11 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
                 0 ->{
                     binding.imCorazon5.setImageDrawable(getDrawable(R.drawable.corazon_x))
                     Almacen.score = Almacen.score + -500
-                    Almacen.tries = Almacen.tries + tries
+                    Almacen.tries = Almacen.tries + 5
                     dialogFinish("Perdiste, vuelve a intentarlo\nPierdes 500 puntos\nLlevas "+Almacen.score+ " puntos","Fallaste")
+                    mediaPlayer = MediaPlayer.create(this, R.raw.violin_lose)
+                    val player = mediaPlayer ?: return
+                    player.start()
                 }
             }
         }
@@ -373,5 +383,15 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
         dialogBuilder.create().show()
 
         return true;
+    }
+
+    private fun vibrarDispositivo(duracion: Long) {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(duracion, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(duracion)
+        }
     }
 }

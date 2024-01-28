@@ -34,6 +34,7 @@ class FragmentPhoto5 : Fragment() {
         inicioVideo()
         if(Almacen.listLeyend[4+(Almacen.nivel*5)].acertado){
             binding.textView3.text = "INFORMACION"
+            binding.imageView2.setBackgroundResource(R.drawable.rounded_cornersgrenn)
         }
 
         val localfile  = File.createTempFile("tempImage","jpg")
@@ -44,9 +45,8 @@ class FragmentPhoto5 : Fragment() {
             Toast.makeText(context,"Algo ha fallado en la descarga", Toast.LENGTH_SHORT).show()
         }
         binding.imageView2.setOnClickListener(){
-            Almacen.seleccionado = 0+(Almacen.nivel*5)
-
-            if(Almacen.listLeyend[0+(Almacen.nivel*5)].acertado){
+            Almacen.seleccionado = 4+(Almacen.nivel*5)
+            if(Almacen.listLeyend[4+(Almacen.nivel*5)].acertado){
                 val MapSapinIntent = Intent(context, Informacion::class.java).apply {}
                 startActivity(MapSapinIntent)
             }else{
