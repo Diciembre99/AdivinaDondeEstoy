@@ -15,6 +15,7 @@ import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.adivinadondeestoyproyecto.databinding.ActivityMainMenuBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -72,6 +73,13 @@ class Main_Menu : AppCompatActivity() {
                 signInClient.signOut()
                 Log.e(TAG1,"Cerrada sesión completamente")
                 finish()
+            }
+            R.id.option_4->{
+                val inflater = layoutInflater
+                val build = MaterialAlertDialogBuilder(this)
+                val dialogView = inflater.inflate(R.layout.dialog_info, null)
+                build.setView(dialogView)
+                build.show()
             }
         }
         return super.onOptionsItemSelected(item)

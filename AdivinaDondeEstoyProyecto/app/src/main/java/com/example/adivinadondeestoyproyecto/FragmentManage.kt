@@ -172,6 +172,13 @@ class FragmentManage : AppCompatActivity() {
                     Toast.makeText(this,"No hay mas niveles disponibles", Toast.LENGTH_SHORT).show()
                 }
             }
+            R.id.option_4->{
+                val inflater = layoutInflater
+                val build = MaterialAlertDialogBuilder(this)
+                val dialogView = inflater.inflate(R.layout.dialog_info, null)
+                build.setView(dialogView)
+                build.show()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -169,6 +169,15 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.option_4->{
+                val inflater = layoutInflater
+                val build = MaterialAlertDialogBuilder(this)
+                val dialogView = inflater.inflate(R.layout.dialog_info, null)
+                build.setView(dialogView)
+                build.show()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -319,7 +328,7 @@ class Busqueda : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocation
 
             }
 
-            Almacen.listPoint.add(Point("",colorPoint,p0.latitude,p0.longitude))
+            Almacen.listPoint.add(Point("",colorPoint,distancia.toDouble()))
             miAdapter.actualizarDatos()
 
             var marcador = map.addMarker(

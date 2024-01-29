@@ -3,23 +3,13 @@ package Adaptador
 import Modelo.Point
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adivinadondeestoyproyecto.R
-import com.google.firebase.Firebase
-import com.google.firebase.storage.storage
-import java.io.File
 
 class AdaptadorPoint (var listPoint : ArrayList<Point>, var  context: Context) : RecyclerView.Adapter<AdaptadorPoint.ViewHolder>() {
     val TAG = "JVVM"
@@ -50,8 +40,8 @@ class AdaptadorPoint (var listPoint : ArrayList<Point>, var  context: Context) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // Elementos que componen cada carta
         val pointImage = view.findViewById(R.id.imageView5) as ImageView
-        val latitud = view.findViewById(R.id.tvLatitud) as TextView
-        val longitud = view.findViewById(R.id.tvLongitud) as TextView
+        val distancia = view.findViewById(R.id.tvDistancia) as TextView
+
 
 
         @SuppressLint("ResourceAsColor")
@@ -62,8 +52,7 @@ class AdaptadorPoint (var listPoint : ArrayList<Point>, var  context: Context) :
             miAdaptadorRecycler: AdaptadorPoint
         ) {
             pointImage.setImageDrawable(point.punto)
-            latitud.text = "Latitud: "+point.latitud.toString()
-            longitud.text = "Latitud: "+point.latitud.toString()
+            distancia.text = "Distancia: "+((point.distance /1000).toInt()).toString()+" KM"
         }
     }
     fun actualizarDatos() {

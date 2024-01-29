@@ -34,7 +34,7 @@
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
@@ -60,22 +60,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvLatitud"
+                        <View
+                            android:id="@+id/divider"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="23dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:id="@+id/tvDistancia"
+                            android:layout_width="match_parent"
+                            android:layout_height="63dp"
                             android:fontFamily="sans-serif-black"
                             android:text="TextView"
                             android:textColor="@color/white"
-                            android:textSize="34sp" />
+                            android:textSize="30sp" />
 
-                        <TextView
-                            android:id="@+id/tvLongitud"
-                            android:layout_width="match_parent"
-                            android:layout_height="58dp"
-                            android:text="TextView"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
                     </LinearLayout>
 
                 </LinearLayout>
