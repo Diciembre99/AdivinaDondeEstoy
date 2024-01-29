@@ -3,12 +3,14 @@ package com.example.adivinadondeestoyproyecto
 import Modelo.Almacen
 import Modelo.Leyend
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
@@ -32,6 +34,7 @@ class Main_Menu : AppCompatActivity() {
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbMenuMain)
+        inicioVideo()
         firebaseauth = FirebaseAuth.getInstance()
         binding.btnMapaSpain.setOnClickListener {
             //val MapSapinIntent = Intent(this, FragmentManage::class.java).apply {}
@@ -53,8 +56,19 @@ class Main_Menu : AppCompatActivity() {
                     startActivity(MapSapinIntent)
                 }
         }
-    }
 
+    }
+    fun inicioVideo(){
+        val packageName = this.packageName
+        val videoController = MediaController(this)
+        videoController.setAnchorView(binding.videoHome)
+        binding.videoHome.setMediaController(videoController)
+        binding.videoHome!!.setVideoURI(
+            Uri.parse("android.resource://"
+                    + packageName + "/" + R.raw.videoplayback))
+        binding.videoHome.start()
+
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)

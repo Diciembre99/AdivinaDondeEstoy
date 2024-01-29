@@ -65,16 +65,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tbMenuMain"
         app:layout_constraintVertical_bias="0.837" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <VideoView
+        android:id="@+id/videoHome"
+        android:layout_width="318dp"
+        android:layout_height="179dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnMapaSpain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbMenuMain"
-        app:layout_constraintVertical_bias="0.095"
-        app:srcCompat="@drawable/banner_login" />
+        app:layout_constraintVertical_bias="0.605" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
